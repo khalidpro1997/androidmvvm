@@ -12,11 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.androidmvvm.R;
+import com.example.androidmvvm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn;
-    TextView textView;
+//    Button btn;
+//    TextView textView;
 
     //6- Connecting MainActivity with viewmodel and listening to livedata.
     AppVIewModel appVIewModel;
@@ -26,15 +27,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = findViewById(R.id.button);
-        textView = findViewById(R.id.textView);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 appVIewModel.getAppName();
             }
         });
+
+
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                appVIewModel.getAppName();
+//            }
+//        });
 
 
         //instead of using deprecated methods.
@@ -45,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 //Any changed in the live data do this.
-                textView.setText(s);
+//                textView.setText(s);
+                binding.textView.setText(s);
             }
         });
     }
